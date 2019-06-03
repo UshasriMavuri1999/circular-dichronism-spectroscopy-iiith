@@ -1,55 +1,55 @@
-//
-// function loadJSON(file, callback) {
-//   var rawFile = new XMLHttpRequest();
-//   rawFile.overrideMimeType("application/json");
-//   rawFile.open("GET", file, true);
-//   rawFile.onreadystatechange = function() {
-//     if (rawFile.readyState === 4 && rawFile.status == "200") {
-//       callback(rawFile.responseText);
-//     }
-//   }
-//   rawFile.send();
-// }
-// loadJSON("app.json", function(text){
-//   let data = JSON.parse(text);
-//   console.log(data);
-//   hello(data.data);
-// });
-//
-// var head = document.querySelector('.head');
-// var bodyclass = document.querySelector('.bodyclass');
-// var maindiv = document.querySelector('.maindiv');
-// var hai = document.createElement("div");
-// head.appendChild(hai);
-// function hello(ha) {
-//   var h1 = document.createElement("h1")
-//   h1.textContent="hjkj"
-//   hai.appendChild(h1);
-//   var img =document.createElement("img")
-//   img.src=ha.dataimg
-//   hai.appendChild(img)
-//
-// }
-var head = document.querySelector('.head');
+var header = document.createElement("header");
+header.classList.add("header");
+document.body.append(header);
 
-fetch("app.json").then(result=>{
-  return result.json()}).then(data=>{
-    var top = document.createElement("header");
-    top.classList.add("top");
-    head.append(top);
+  var topimgdiv = document.createElement("div");
+  topimgdiv.classList.add("topimgdiv");
+  header.append(topimgdiv);
 
-  })
+    var topimg = document.createElement("img");
+    topimg.classList.add("topimg");
+    topimg.src="../img/logo.jpg";
+    topimgdiv.append(topimg);
+
+    var heading1div = document.createElement("div");
+    heading1div.classList.add("heading1div");
+    header.append(heading1div);
+
+    var heading1 = document.createElement("h1");
+    heading1.classList.add("heading1");
+    heading1.textContent="CIRCULAR DICHROISM VIRTUAL LAB";
+    heading1div.append(heading1);
+
+    var mainarticle = document.createElement("article");
+    mainarticle.classList.add("mainarticle");
+    document.body.append(mainarticle);
+	
+	var firstdiv = document.createElement("div");
+	firstdiv.classList.add("firstdiv");
+	mainarticle.append(firstdiv);
+
+   var home = document.createElement("a");
+   home.textContent="Home <";
+   //home.src="../../index.html";
+   
+   firstdiv.append(home);
+   
+   var cdvl = document.createElement("a");
+   cdvl.textContent=" Circular Dichroism Virtual Lab <";
+  
+   firstdiv.append(cdvl);
+   
+   var tsp = document.createElement("a");
+   tsp.textContent=" To Study the Thermal Stability of Proteins ";
+   firstdiv.append(tsp);
+   
+   
+   var header2= document.createElement("header");
+   header2.classList.add("header2");
+   header2.textContent="To Study the Thermal Stability of Proteins";
+   mainarticle.append(header2);
 
 
-//     var topimg = document.createElement("img");
-//     topimg.src=data.dataimg;
-//     top.append(topimg);
-
-    // var heading1 = document.createElement("h1");
-    // heading1.classList.add("heading1");
-    // heading1.textContent="hjhh";
-    // bodyclass.append(heading1);
-    //
     // var introduction = document.createElement("div");
     // introduction.classList.add("introduction");
     // maindiv.append(introduction);
@@ -81,7 +81,3 @@ fetch("app.json").then(result=>{
     // var intro = document.createElement("h3");
     // intro.classList.add("intro");
     // maindiv.append(intro);
-    //
-    // var para = document.createElement("h4");
-    // para.classList.add("para");
-    // maindiv.append(para);
