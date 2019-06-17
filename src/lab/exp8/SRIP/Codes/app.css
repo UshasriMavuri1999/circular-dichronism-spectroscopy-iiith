@@ -1,47 +1,45 @@
-
 body{
   background-color: #012943  ;
   font-size: 12px;
   color : #FFF;
   text-shadow: none;
   margin:0 auto;
-  /* padding-left:  240px;  */
-  /* padding-right: 200px; */
-    width: 66.7vw;
-
+  width: 66.7vw;
 }
 .heading1div{
   background-image: url(../img/header-blue.gif) ;
   height: 50px;
   width: 66.7vw;
+  margin-top: -15px;
 }
 .heading1{
-  /* margin-top: 0; */
-
+    color: #fff;
+    text-decoration: none;
+     font-size: 24px;
+    font-weight: bold;
+    padding: 5px 25px 0px;
+}
+.heading1:hover{
+    background-color: #02568e;
+    width: 30vw;
 }
 .topimg{
   width: 66.7vw;
 }
 .maindiv{
-  /* background: white; */
   width: 66.7vw;
   border:2px solid gray;
-  /* padding:25px; */
-  /* margin-top: 5px; */
+}
+.firstdiv {
+    font-size: 16px;
 }
 .mainarticle{
     width: 66.7vw;
-  /* padding-top: 5px; */
   background:#E3F2FC;
   color: #3D414C;
-
+  height:10vh;
 
 }
-
-.firstdiv {
-    /* margin-left: 30px; */
-}
-
 .header2{
     font-size: 45px;
     font-family: Georgia, "Times New Roman", Times, Serif;
@@ -49,33 +47,102 @@ body{
     text-transform: none;
     line-height: 60px;
     color: #3d414c;
-    /* padding: 10px 30px; */
     letter-spacing: 0;
     position: relative;
     margin: auto;
     width: 60.7vw;
     background-color: rgb(227, 242, 252);
 }
-.expArticle {
-    height: 60vh;
-    margin: 0 auto;
+.innerExpArticle2 {
     width: 66.7vw;
-    background: url(../images/content_bg.jpg);
+    background-image: url("../img/content_bg.jpg");
+    height:100vh;
+    margin: 0 auto;
 }
-.innerExpArticle{
+.innerExpArticle1{
   display: flex;
   justify-content: space-around;
+  /* background: url("../images/content_bg.jpg"); */
   background: white;
-  height: 14vh;
+  height: 20vh;
   margin-left: 25px;
   margin-right: 25px;
+}
+.para,.para1{
+  font-size: 20px;
+  margin-left: 25px;
+  margin-right: 15px;
+  line-height: 24px;
+  padding: 10px;
+  color: black;
+}
+.p1{
+  margin-top: -20px;
+  margin-left: 32px;
+  font-size: 25px;
+  color: black;
+}
+.experiment{
+  height: 15vh;
+}
+.experiment:hover,.experiment.h3:hover{
+  background-color: #02568e;
+  /* text-decoration-color: white; */
+  color: #fff;
+}
+
+.theory{
+height: 15vh;
+}
+
+.theory:hover{
+  background-color: #02568e;
+ color: white;
+}
+.objective{
+height: 15vh;
+}
+.objective:hover{
+  background-color: #02568e;
+ color: white;
+}
+.introduction{
+height: 15vh;
+}
+.introduction:hover{
+  background-color: #02568e;
+ color: white;
+}
+.manual{
+height: 15vh;
+}
+.manual:hover{
+  background-color: #02568e;
+ color: white;
 
 }
-.innerExpArticle2{
-  
-  background: white;
-  height: 14vh;
-  margin-left: 25px;
-  margin-right: 25px;
+.quizzes{
+height: 15vh;
+}
+.quizzes:hover{
+  background-color: #02568e;
+ color: white;
+}
+.other{
+height: 15vh;
+}
+.other:hover{
+  background-color: #02568e;
+ color: white;
+
+}
+.img{
+  margin:10px;
+}
+.text{
+  color: #02568e;
+  text-decoration: underline;
+  margin-top: 0px;
+  font-size: 16px;
 
 }

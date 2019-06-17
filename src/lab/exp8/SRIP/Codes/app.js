@@ -25,46 +25,41 @@ document.body.append(header);
   	firstdiv.classList.add("firstdiv");
   	document.body.append(firstdiv);
 
+    var home = document.createElement("a");
+    home.textContent="   Home > ";
+    firstdiv.append(home);
+
+    var cdvl = document.createElement("a");
+    cdvl.textContent=" Circular Dichroism Virtual Lab > ";
+
+    firstdiv.append(cdvl);
+
+    var tsp = document.createElement("a");
+    tsp.textContent=" To Study the Thermal Stability of Proteins ";
+    firstdiv.append(tsp);
+
     var mainarticle = document.createElement("article");
     mainarticle.classList.add("mainarticle");
     document.body.append(mainarticle);
-
-
-
-
-   var home = document.createElement("a");
-   home.textContent="   Home > ";
-   //home.src="../../index.html";
-
-   firstdiv.append(home);
-
-   var cdvl = document.createElement("a");
-   cdvl.textContent=" Circular Dichroism Virtual Lab > ";
-
-   firstdiv.append(cdvl);
-
-   var tsp = document.createElement("a");
-   tsp.textContent=" To Study the Thermal Stability of Proteins ";
-   firstdiv.append(tsp);
-
 
    var header2= document.createElement("header");
    header2.classList.add("header2");
    header2.textContent="To Study the Thermal Stability of Proteins.";
    mainarticle.append(header2);
 
-   var expArticle = document.createElement("div");
-   expArticle.classList.add("expArticle");
-   mainarticle.append(expArticle);
 
-   var innerExpArticle = document.createElement("div");
-   innerExpArticle.classList.add("innerExpArticle");
-   expArticle.append(innerExpArticle);
+   var innerExpArticle2 = document.createElement("div");
+   innerExpArticle2.classList.add("innerExpArticle2");
+   document.body.append(innerExpArticle2);
+
+   var innerExpArticle1 = document.createElement("div");
+   innerExpArticle1.classList.add("innerExpArticle1");
+   innerExpArticle2.append(innerExpArticle1);
 
 
     var introduction = document.createElement("div");
     introduction.classList.add("introduction");
-    innerExpArticle.append(introduction);
+    innerExpArticle1.append(introduction);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -78,7 +73,7 @@ document.body.append(header);
 
     var theory = document.createElement("div");
     theory.classList.add("theory");
-    innerExpArticle.append(theory);
+    innerExpArticle1.append(theory);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -92,7 +87,7 @@ document.body.append(header);
 
     var objective = document.createElement("div");
     objective.classList.add("objective");
-    innerExpArticle.append(objective);
+    innerExpArticle1.append(objective);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -107,7 +102,7 @@ document.body.append(header);
 
     var experiment = document.createElement("div");
     experiment.classList.add("experiment");
-    innerExpArticle.append(experiment);
+    innerExpArticle1.append(experiment);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -121,7 +116,7 @@ document.body.append(header);
 
     var manual = document.createElement("div");
     manual.classList.add("manual");
-    innerExpArticle.append(manual);
+    innerExpArticle1.append(manual);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -135,7 +130,7 @@ document.body.append(header);
 
     var quizzes = document.createElement("div");
     quizzes.classList.add("quizzes");
-    innerExpArticle.append(quizzes);
+    innerExpArticle1.append(quizzes);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -149,7 +144,7 @@ document.body.append(header);
 
     var other = document.createElement("div");
     other.classList.add("other");
-    innerExpArticle.append(other);
+    innerExpArticle1.append(other);
 
     var img = document.createElement("img");
     img.classList.add("img");
@@ -161,18 +156,17 @@ document.body.append(header);
     text.textContent="FURTHER READINGS";
     other.append(text);
 
-    var innerExpArticle2 = document.createElement("div");
-    innerExpArticle2.classList.add("innerExpArticle2");
-    expArticle.append(innerExpArticle2);
-
     var introHeading = document.createElement("h2");
+    introHeading.classList.add("p1");
     introHeading.textContent="Introduction";
     innerExpArticle2.append(introHeading);
 
     var para = document.createElement("p");
     para.classList.add("para");
-  para.textContent="We all are familiar with the phenomena of boiling an egg. At higher temperature the egg white gets solidified. This phenomenon may be explained by the concept of thermal denaturation. The white portion of an egg is nothing but a protein called albumin. At higher temperatures the protein albumin unfolds and as a result the state of the protein changes from liquid to solid.";
-
-     // Another interesting observation is that this process of unfolding is irreversible. So if we decrease the temperature of a boiled egg, the albumin will not refold and form a liquid state again. This phenomenon is explained in the following video.";
-
+    para.textContent="We all are familiar with the phenomena of boiling an egg. At higher temperature the egg white gets solidified. This phenomenon may be explained by the concept of thermal denaturation. The white portion of an egg is nothing but a protein called albumin. At higher temperatures the protein albumin unfolds and as a result the state of the protein changes from liquid to solid.";
     innerExpArticle2.append(para);
+
+   var para1 = document.createElement("p");
+   para1.classList.add("para1");
+   para1.textContent="Another interesting observation is that this process of unfolding is irreversible. So if we decrease the temperature of a boiled egg, the albumin will not refold and form a liquid state again. This phenomenon is explained in the following video.";
+   innerExpArticle2.append(para1);
