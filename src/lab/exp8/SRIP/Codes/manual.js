@@ -58,7 +58,7 @@ document.body.append(header);
 
 
     var introduction = document.createElement("a");
-    introduction.href="introduction.html";
+    introduction.href="index.html";
     introduction.classList.add("introduction");
     innerExpArticle1.append(introduction);
 
@@ -88,8 +88,8 @@ document.body.append(header);
     theory.append(text);
 
     var objective = document.createElement("a");
-    objective.href="objective.html";
     objective.classList.add("objective");
+    objective.href="objective.js";
     innerExpArticle1.append(objective);
 
     var img = document.createElement("img");
@@ -165,33 +165,12 @@ document.body.append(header);
 
     var introHeading = document.createElement("h2");
     introHeading.classList.add("p1");
-    introHeading.textContent="Introduction";
+    introHeading.textContent="Manual";
     innerExpArticle2.append(introHeading);
 
-    var para = document.createElement("p");
-    para.classList.add("para");
-    para.textContent="We all are familiar with the phenomena of boiling an egg. At higher temperature the egg white gets solidified. This phenomenon may be explained by the concept of thermal denaturation. The white portion of an egg is nothing but a protein called albumin. At higher temperatures the protein albumin unfolds and as a result the state of the protein changes from liquid to solid.";
-    innerExpArticle2.append(para);
 
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="Another interesting observation is that this process of unfolding is irreversible. So if we decrease the temperature of a boiled egg, the albumin will not refold and form a liquid state again. This phenomenon is explained in the following video.";
-   innerExpArticle2.append(para1);
 
-   var video = document.createElement("embed");
-   video.classList.add("video");
-   video.src="player.swf";
-   innerExpArticle2.append(video);
 
-   var para = document.createElement("p");
-   para.classList.add("para");
-   para.textContent="To understand the extent of unfolding in proteins at different temperatures it is important to estimate its secondary structure content at that particular temperature. In Experiment 6 and 7 we have seen how to extract information regarding secondary structure of a protein from circular dichroism spectroscopic data. So CD spectrometry may be used as a very effective and efficient tool for studying the secondary structure of a protein at different temperatures and inturn aids in studying thermal stability of the protein.";
-   innerExpArticle2.append(para);
-
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="In this experiment we will observe the phenomena of unfolding of a helical membrane protein, called Rhodopsin. We will see how Rhodopsin goes to an unfolded state from a folded state with increase in the temperature. At the same time we will understand how we can use CD spectrometry data to study the thermal stability of Rhodopsin and find out the transition temperature of unfolding.";
-   innerExpArticle2.append(para1);
 
   var foot=document.createElement("footer");
   foot.classList.add("foot");

@@ -58,7 +58,7 @@ document.body.append(header);
 
 
     var introduction = document.createElement("a");
-    introduction.href="introduction.html";
+    introduction.href="index.html";
     introduction.classList.add("introduction");
     innerExpArticle1.append(introduction);
 
@@ -165,33 +165,28 @@ document.body.append(header);
 
     var introHeading = document.createElement("h2");
     introHeading.classList.add("p1");
-    introHeading.textContent="Introduction";
+    introHeading.textContent="Theory";
     innerExpArticle2.append(introHeading);
 
-    var para = document.createElement("p");
-    para.classList.add("para");
-    para.textContent="We all are familiar with the phenomena of boiling an egg. At higher temperature the egg white gets solidified. This phenomenon may be explained by the concept of thermal denaturation. The white portion of an egg is nothing but a protein called albumin. At higher temperatures the protein albumin unfolds and as a result the state of the protein changes from liquid to solid.";
-    innerExpArticle2.append(para);
+  var h2 = document.createElement("h2");
+  h2.classList.add("h2");
+  h2.textContent="Protein Folding - the process and its cause";
+  innerExpArticle2.append(h2);
 
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="Another interesting observation is that this process of unfolding is irreversible. So if we decrease the temperature of a boiled egg, the albumin will not refold and form a liquid state again. This phenomenon is explained in the following video.";
-   innerExpArticle2.append(para1);
+ var paragraph= document.createElement("p");
+ paragraph.classList.add("paragraph");
+ innerExpArticle2.append(paragraph);
 
-   var video = document.createElement("embed");
-   video.classList.add("video");
-   video.src="player.swf";
-   innerExpArticle2.append(video);
+  var para2 = document.createElement("a");
+  para2.classList.add("para2");
+  para2.textContent="protein folding";
+  para2.href="https://en.wikipedia.org/wiki/Protein_folding";
+  paragraph.append(para2);
 
-   var para = document.createElement("p");
-   para.classList.add("para");
-   para.textContent="To understand the extent of unfolding in proteins at different temperatures it is important to estimate its secondary structure content at that particular temperature. In Experiment 6 and 7 we have seen how to extract information regarding secondary structure of a protein from circular dichroism spectroscopic data. So CD spectrometry may be used as a very effective and efficient tool for studying the secondary structure of a protein at different temperatures and inturn aids in studying thermal stability of the protein.";
-   innerExpArticle2.append(para);
-
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="In this experiment we will observe the phenomena of unfolding of a helical membrane protein, called Rhodopsin. We will see how Rhodopsin goes to an unfolded state from a folded state with increase in the temperature. At the same time we will understand how we can use CD spectrometry data to study the thermal stability of Rhodopsin and find out the transition temperature of unfolding.";
-   innerExpArticle2.append(para1);
+var para2 = document.createElement("p");
+para2.classList.add("para2");
+para2.textContent=" is the ultimate process where the information contained in genes is transformed into the final functional unit, an active folded protein from the unfolded primary amino acid sequence.";
+paragraph.append(para2);
 
   var foot=document.createElement("footer");
   foot.classList.add("foot");

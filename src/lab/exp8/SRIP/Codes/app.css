@@ -6,6 +6,9 @@ body{
   margin:0 auto;
   width: 66.7vw;
 }
+html{
+  height: 200vh;
+}
 .heading1div{
   background-image: url(../img/header-blue.gif) ;
   height: 50px;
@@ -22,6 +25,7 @@ body{
 .heading1:hover{
     background-color: #02568e;
     width: 30vw;
+
 }
 .topimg{
   width: 66.7vw;
@@ -56,7 +60,7 @@ body{
 .innerExpArticle2 {
     width: 66.7vw;
     background-image: url("../img/content_bg.jpg");
-    height:100vh;
+    /* height:133vh; */
     margin: 0 auto;
 }
 .innerExpArticle1{
@@ -68,13 +72,38 @@ body{
   margin-left: 25px;
   margin-right: 25px;
 }
-.para,.para1{
-  font-size: 20px;
+.para {
+  font-size: 17px;
   margin-left: 25px;
   margin-right: 15px;
   line-height: 24px;
   padding: 10px;
   color: black;
+}
+.ol{
+  font-size: 17px;
+  margin-left: 45px;
+  margin-right: 15px;
+  line-height: 24px;
+  padding: 10px;
+  color: black;
+}
+ .para2{
+   font-size: 17px;
+   line-height: 25px;
+   color:black;
+   margin-left: 40px;
+
+ }
+.para1{
+  font-size: 17px;
+  margin-left: 25px;
+  margin-right: 15px;
+  line-height: 24px;
+  padding: 10px;
+  color: black;
+  margin-top: -15px;
+
 }
 .p1{
   margin-top: -20px;
@@ -97,8 +126,9 @@ height: 15vh;
 
 .theory:hover{
   background-color: #02568e;
- color: white;
+     color: white;
 }
+
 .objective{
 height: 15vh;
 }
@@ -144,5 +174,35 @@ height: 15vh;
   text-decoration: underline;
   margin-top: 0px;
   font-size: 16px;
+
+}
+.video{
+margin-left: 150px;
+width: 70%;
+height:50vh;
+
+}
+.foot{
+  text-decoration: underline;
+  margin-left: 330px;
+  display: flex;
+  margin-top: 150px;
+}
+.foot1{
+  color: #607890;
+}
+.foot1:hover{
+  color:#012990;
+}
+.h2{
+  text-align: center;
+  font-size: 17px;
+  color: black;
+  text-decoration: underline;
+}
+.paragraph{
+  /* display: flex; */
+  margin-left: 25px;
+  margin-right: 20px;
 
 }
