@@ -1,216 +1,86 @@
-var header = document.createElement("header");
-header.classList.add("header");
-document.body.append(header);
+var root=document.querySelector('.maindiv');
 
-  var topimgdiv = document.createElement("div");
-  topimgdiv.classList.add("topimgdiv");
-  header.append(topimgdiv);
+fetch("dynamic.json")
+.then((result)=>{
+  return result.json()})
+.then((data)=>{
+  var left=document.createElement("div");
+  left.classList.add("leftdiv");
+  root.append(left);
 
-    var topimg = document.createElement("img");
-    topimg.classList.add("topimg");
-    topimg.src="../img/logo.jpg";
-    topimgdiv.append(topimg);
+  var left1=document.createElement("div");
+  left1.classList.add("ic1");
+  left.append(left1);
 
-    var heading1div = document.createElement("div");
-    heading1div.classList.add("heading1div");
-    header.append(heading1div);
+  var pic=document.createElement("img");
+  pic.src=data.sd.picture;
+  left1.append(pic);
 
-    var heading1 = document.createElement("h1");
-    heading1.classList.add("heading1");
-    heading1.textContent="CIRCULAR DICHROISM VIRTUAL LAB";
-    heading1div.append(heading1);
+  var title=document.createElement("h3");
+  title.textContent=data.sd.name;
+  left1.append(title);
 
+  var num=document.createElement("h3");
+  num.textContent=data.sd.regdno;
+  left1.append(num);
 
-  	var firstdiv = document.createElement("div");
-  	firstdiv.classList.add("firstdiv");
-  	document.body.append(firstdiv);
+  var left2=document.createElement("div");
+  left2.classList.add("ic2");
+  left.append(left2);
 
-    var home = document.createElement("a");
-    home.textContent="   Home > ";
-    firstdiv.append(home);
+  var mail=document.createElement("h3");
+  mail.textContent=data.sd.emailid;
+  left2.append(mail);
 
-    var cdvl = document.createElement("a");
-    cdvl.textContent=" Circular Dichroism Virtual Lab > ";
-
-    firstdiv.append(cdvl);
-
-    var tsp = document.createElement("a");
-    tsp.textContent=" To Study the Thermal Stability of Proteins ";
-    firstdiv.append(tsp);
-
-    var mainarticle = document.createElement("article");
-    mainarticle.classList.add("mainarticle");
-    document.body.append(mainarticle);
-
-   var header2= document.createElement("header");
-   header2.classList.add("header2");
-   header2.textContent="To Study the Thermal Stability of Proteins.";
-   mainarticle.append(header2);
+  var phone=document.createElement("h3");
+  phone.textContent=data.sd.cellno;
+  left2.append(phone);
 
 
-   var innerExpArticle2 = document.createElement("div");
-   innerExpArticle2.classList.add("innerExpArticle2");
-   document.body.append(innerExpArticle2);
+  var right=document.createElement("div");
+  right.classList.add("rightdiv");
+  root.append(right);
 
-   var innerExpArticle1 = document.createElement("div");
-   innerExpArticle1.classList.add("innerExpArticle1");
-   innerExpArticle2.append(innerExpArticle1);
-
-
-    var introduction = document.createElement("a");
-    introduction.href="introduction.html";
-    introduction.classList.add("introduction");
-    innerExpArticle1.append(introduction);
-
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/introduction.jpg";
-    introduction.append(img);
-
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="INTRODUCTION";
-    introduction.append(text);
-
-    var theory = document.createElement("a");
-    theory.classList.add("theory");
-    theory.href="theory.html";
-    innerExpArticle1.append(theory);
-
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/theory.jpg";
-    theory.append(img);
-
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="THEORY";
-    theory.append(text);
-
-    var objective = document.createElement("a");
-    objective.href="objective.html";
-    objective.classList.add("objective");
-    innerExpArticle1.append(objective);
-
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/objective.jpg";
-    objective.append(img);
-
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="OBJECTIVE";
-    objective.append(text);
+  var edu=document.createElement("h2");
+  edu.textContent="Education";
+  right.append(edu);
 
 
-    var experiment = document.createElement("a");
-    experiment.href="experiment.html";
-    experiment.classList.add("experiment");
-    innerExpArticle1.append(experiment);
 
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/simulation.jpg";
-    experiment.append(img);
+  for(var i in data.education){
+    var rightp=document.createElement("div");
+    rightp.classList.add("rightChild");
+    right.append(rightp);
 
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="EXPERIMENT";
-    experiment.append(text);
+    var eduType=document.createElement("h3");
+    eduType.textContent=data.education[i].type;
+    rightp.append(eduType);
 
-    var manual = document.createElement("a");
-    manual.href="manual.html";
-    manual.classList.add("manual");
-    innerExpArticle1.append(manual);
+    var eduDes=document.createElement("p");
+    eduDes.textContent=data.education[i].description;
+    rightp.append(eduDes);
+  }
 
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/theory.jpg";
-    manual.append(img);
+  var skil=document.createElement("h2");
+  skil.textContent="Skills";
+  right.append(skil);
 
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="MANUAL";
-    manual.append(text);
 
-    var quizzes = document.createElement("a");
-    quizzes.href="quizzes.html";
-    quizzes.classList.add("quizzes");
-    innerExpArticle1.append(quizzes);
+  for(var i in data.skills){
+    var rightp=document.createElement("div");
+    rightp.classList.add("rightChild");
+    right.append(rightp);
 
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/quizzes.jpg";
-    quizzes.append(img);
+    var skill=document.createElement("h3");
+    skill.textContent=data.skills[i].keywords;
+    rightp.append(skill);
 
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="QUIZZES";
-    quizzes.append(text);
+    var skill1=document.createElement("p");
+    skill1.textContent=data.skills[i].name;
+    rightp.append(skill1);
+  }
 
-    var other = document.createElement("a");
-    other.href="other.html";
-    other.classList.add("other");
-    innerExpArticle1.append(other);
 
-    var img = document.createElement("img");
-    img.classList.add("img");
-    img.src="../img/readings.jpg";
-    other.append(img);
 
-    var text = document.createElement("h3");
-    text.classList.add("text");
-    text.textContent="FURTHER READINGS";
-    other.append(text);
 
-    var introHeading = document.createElement("h2");
-    introHeading.classList.add("p1");
-    introHeading.textContent="Introduction";
-    innerExpArticle2.append(introHeading);
-
-    var para = document.createElement("p");
-    para.classList.add("para");
-    para.textContent="We all are familiar with the phenomena of boiling an egg. At higher temperature the egg white gets solidified. This phenomenon may be explained by the concept of thermal denaturation. The white portion of an egg is nothing but a protein called albumin. At higher temperatures the protein albumin unfolds and as a result the state of the protein changes from liquid to solid.";
-    innerExpArticle2.append(para);
-
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="Another interesting observation is that this process of unfolding is irreversible. So if we decrease the temperature of a boiled egg, the albumin will not refold and form a liquid state again. This phenomenon is explained in the following video.";
-   innerExpArticle2.append(para1);
-
-   var video = document.createElement("embed");
-   video.classList.add("video");
-   video.src="player.swf";
-   innerExpArticle2.append(video);
-
-   var para = document.createElement("p");
-   para.classList.add("para");
-   para.textContent="To understand the extent of unfolding in proteins at different temperatures it is important to estimate its secondary structure content at that particular temperature. In Experiment 6 and 7 we have seen how to extract information regarding secondary structure of a protein from circular dichroism spectroscopic data. So CD spectrometry may be used as a very effective and efficient tool for studying the secondary structure of a protein at different temperatures and inturn aids in studying thermal stability of the protein.";
-   innerExpArticle2.append(para);
-
-   var para1 = document.createElement("p");
-   para1.classList.add("para1");
-   para1.textContent="In this experiment we will observe the phenomena of unfolding of a helical membrane protein, called Rhodopsin. We will see how Rhodopsin goes to an unfolded state from a folded state with increase in the temperature. At the same time we will understand how we can use CD spectrometry data to study the thermal stability of Rhodopsin and find out the transition temperature of unfolding.";
-   innerExpArticle2.append(para1);
-
-  var foot=document.createElement("footer");
-  foot.classList.add("foot");
-  document.body.append(foot);
-
-   var foot1 = document.createElement("a");
-   foot1.classList.add("foot1");
-   foot1.href="http://virtual-labs.ac.in/nmeict/";
-   foot1.textContent="Sponsered by MHRD (NME-ICT) | ";
-   foot.append(foot1);
-
-   var foot1=document.createElement("a");
-   foot1.classList.add("foot1");
-   foot1.href="http://virtual-labs.ac.in/licensing/";
-   foot1.textContent=" Licensing Terms | ";
-   foot.append(foot1);
-
-   var foot1= document.createElement("a");
-   foot1.classList.add("foot1");
-   foot1.href="http://virtual-labs.ac.in/feedback/"
-   foot1.textContent=" Feedback";
-   foot.append(foot1);
+})
