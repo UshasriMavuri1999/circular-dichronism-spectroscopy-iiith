@@ -29,14 +29,14 @@ var root=document.querySelector('.maindiv');
 
   right1Img = document.createElement("img");
   right1Img.classList.add("image");
-  right1Img.src="dropper.jpg";
+  right1Img.src="Protein.jpg";
   right1Img.onclick="moveleft()";
 right1Img.onclick="moveback()";
   right2.append(right1Img);
 
   var right3=document.createElement("div");
   right3.classList.add("right3");
-  right3.textContent="Protein Solution";
+  right3.textContent="Pipette";
   containerLeft.append(right3);
 
   right1Img = document.createElement("img");
@@ -53,7 +53,7 @@ right1Img.onclick="moveback()";
 
   right1Img = document.createElement("img");
   right1Img.classList.add("image");
-  right1Img.src="dropper.jpg";
+  right1Img.src="cuvette.jpg";
   right1Img.onclick="moveleft()";
 right1Img.onclick="moveback()";
   right4.append(right1Img);
