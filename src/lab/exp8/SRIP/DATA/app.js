@@ -74,6 +74,11 @@ container.append(tablediv);
   hrline.classList.add("hrline");
   tablediv.append(hrline);
 
+spec = document.createElement("img");
+spec.classList.add("spec");
+spec.src="spectrometer.jpg";
+
+  tablediv.append(spec);
 
   function moveleft()
   {
