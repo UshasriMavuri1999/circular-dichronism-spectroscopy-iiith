@@ -4009,3 +4009,434 @@ SVG.ClipPath = SVG.invent({
     }
   }
 })
+SVG.extend(SVG.Element, {
+  // Distribute clipPath to svg element
+  clipWith: function(element) {
+    // use given clip or create a new one
+    this.clipper = element instanceof SVG.ClipPath ? element : this.parent().clip().add(element)
+
+    // store reverence on self in mask
+    this.clipper.targets.push(this)
+
+    // apply mask
+    return this.attr('clip-path', 'url("#' + this.clipper.attr('id') + '")')
+  }
+  // Unclip element
+, unclip: function() {
+    delete this.clipper
+    return this.attr('clip-path', null)
+  }
+
+})
+SVG.Gradient = SVG.invent({
+  // Initialize node
+  create: function(type) {
+    this.constructor.call(this, SVG.create(type + 'Gradient'))
+
+    // store type
+    this.type = type
+  }
+
+  // Inherit from
+, inherit: SVG.Container
+
+  // Add class methods
+, extend: {
+    // Add a color stop
+    at: function(offset, color, opacity) {
+      return this.put(new SVG.Stop).update(offset, color, opacity)
+    }
+    // Update gradient
+  , update: function(block) {
+      // remove all stops
+      this.clear()
+
+      // invoke passed block
+      if (typeof block == 'function')
+        block.call(this, this)
+
+      return this
+    }
+    // Return the fill id
+  , fill: function() {
+      return 'url(#' + this.id() + ')'
+    }
+    // Alias string convertion to fill
+  , toString: function() {
+      return this.fill()
+    }
+    // custom attr to handle transform
+  , attr: function(a, b, c) {
+      if(a == 'transform') a = 'gradientTransform'
+      return SVG.Container.prototype.attr.call(this, a, b, c)
+    }
+  }
+
+  // Add parent method
+, construct: {
+    // Create gradient element in defs
+    gradient: function(type, block) {
+      return this.defs().gradient(type, block)
+    }
+  }
+})
+
+// Add animatable methods to both gradient and fx module
+SVG.extend(SVG.Gradient, SVG.FX, {
+  // From position
+  from: function(x, y) {
+    return (this._target || this).type == 'radial' ?
+      this.attr({ fx: new SVG.Number(x), fy: new SVG.Number(y) }) :
+      this.attr({ x1: new SVG.Number(x), y1: new SVG.Number(y) })
+  }
+  // To position
+, to: function(x, y) {
+    return (this._target || this).type == 'radial' ?
+      this.attr({ cx: new SVG.Number(x), cy: new SVG.Number(y) }) :
+      this.attr({ x2: new SVG.Number(x), y2: new SVG.Number(y) })
+  }
+})
+
+// Base gradient generation
+SVG.extend(SVG.Defs, {
+  // define gradient
+  gradient: function(type, block) {
+    return this.put(new SVG.Gradient(type)).update(block)
+  }
+
+})
+
+SVG.Stop = SVG.invent({
+  // Initialize node
+  create: 'stop'
+
+  // Inherit from
+, inherit: SVG.Element
+
+  // Add class methods
+, extend: {
+    // add color stops
+    update: function(o) {
+      if (typeof o == 'number' || o instanceof SVG.Number) {
+        o = {
+          offset:  arguments[0]
+        , color:   arguments[1]
+        , opacity: arguments[2]
+        }
+      }
+
+      // set attributes
+      if (o.opacity != null) this.attr('stop-opacity', o.opacity)
+      if (o.color   != null) this.attr('stop-color', o.color)
+      if (o.offset  != null) this.attr('offset', new SVG.Number(o.offset))
+
+      return this
+    }
+  }
+
+})
+
+SVG.Pattern = SVG.invent({
+  // Initialize node
+  create: 'pattern'
+
+  // Inherit from
+, inherit: SVG.Container
+
+  // Add class methods
+, extend: {
+    // Return the fill id
+    fill: function() {
+      return 'url(#' + this.id() + ')'
+    }
+    // Update pattern by rebuilding
+  , update: function(block) {
+      // remove content
+      this.clear()
+
+      // invoke passed block
+      if (typeof block == 'function')
+        block.call(this, this)
+
+      return this
+    }
+    // Alias string convertion to fill
+  , toString: function() {
+      return this.fill()
+    }
+    // custom attr to handle transform
+  , attr: function(a, b, c) {
+      if(a == 'transform') a = 'patternTransform'
+      return SVG.Container.prototype.attr.call(this, a, b, c)
+    }
+
+  }
+
+  // Add parent method
+, construct: {
+    // Create pattern element in defs
+    pattern: function(width, height, block) {
+      return this.defs().pattern(width, height, block)
+    }
+  }
+})
+
+SVG.extend(SVG.Defs, {
+  // Define gradient
+  pattern: function(width, height, block) {
+    return this.put(new SVG.Pattern).update(block).attr({
+      x:            0
+    , y:            0
+    , width:        width
+    , height:       height
+    , patternUnits: 'userSpaceOnUse'
+    })
+  }
+
+})
+SVG.Shape = SVG.invent({
+  // Initialize node
+  create: function(element) {
+    this.constructor.call(this, element)
+  }
+
+  // Inherit from
+, inherit: SVG.Element
+
+})
+
+SVG.Bare = SVG.invent({
+  // Initialize
+  create: function(element, inherit) {
+    // construct element
+    this.constructor.call(this, SVG.create(element))
+
+    // inherit custom methods
+    if (inherit)
+      for (var method in inherit.prototype)
+        if (typeof inherit.prototype[method] === 'function')
+          this[method] = inherit.prototype[method]
+  }
+
+  // Inherit from
+, inherit: SVG.Element
+
+  // Add methods
+, extend: {
+    // Insert some plain text
+    words: function(text) {
+      // remove contents
+      while (this.node.hasChildNodes())
+        this.node.removeChild(this.node.lastChild)
+
+      // create text node
+      this.node.appendChild(document.createTextNode(text))
+
+      return this
+    }
+  }
+})
+
+
+SVG.extend(SVG.Parent, {
+  // Create an element that is not described by SVG.js
+  element: function(element, inherit) {
+    return this.put(new SVG.Bare(element, inherit))
+  }
+})
+
+SVG.Symbol = SVG.invent({
+  // Initialize node
+  create: 'symbol'
+
+  // Inherit from
+, inherit: SVG.Container
+
+, construct: {
+    // create symbol
+    symbol: function() {
+      return this.put(new SVG.Symbol)
+    }
+  }
+})
+
+SVG.Use = SVG.invent({
+  // Initialize node
+  create: 'use'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add class methods
+, extend: {
+    // Use element as a reference
+    element: function(element, file) {
+      // Set lined element
+      return this.attr('href', (file || '') + '#' + element, SVG.xlink)
+    }
+  }
+
+  // Add parent method
+, construct: {
+    // Create a use element
+    use: function(element, file) {
+      return this.put(new SVG.Use).element(element, file)
+    }
+  }
+})
+SVG.Rect = SVG.invent({
+  // Initialize node
+  create: 'rect'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add parent method
+, construct: {
+    // Create a rect element
+    rect: function(width, height) {
+      return this.put(new SVG.Rect()).size(width, height)
+    }
+  }
+})
+SVG.Circle = SVG.invent({
+  // Initialize node
+  create: 'circle'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add parent method
+, construct: {
+    // Create circle element, based on ellipse
+    circle: function(size) {
+      return this.put(new SVG.Circle).rx(new SVG.Number(size).divide(2)).move(0, 0)
+    }
+  }
+})
+
+SVG.extend(SVG.Circle, SVG.FX, {
+  // Radius x value
+  rx: function(rx) {
+    return this.attr('r', rx)
+  }
+  // Alias radius x value
+, ry: function(ry) {
+    return this.rx(ry)
+  }
+})
+
+SVG.Ellipse = SVG.invent({
+  // Initialize node
+  create: 'ellipse'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add parent method
+, construct: {
+    // Create an ellipse
+    ellipse: function(width, height) {
+      return this.put(new SVG.Ellipse).size(width, height).move(0, 0)
+    }
+  }
+})
+
+SVG.extend(SVG.Ellipse, SVG.Rect, SVG.FX, {
+  // Radius x value
+  rx: function(rx) {
+    return this.attr('rx', rx)
+  }
+  // Radius y value
+, ry: function(ry) {
+    return this.attr('ry', ry)
+  }
+})
+
+// Add common method
+SVG.extend(SVG.Circle, SVG.Ellipse, {
+    // Move over x-axis
+    x: function(x) {
+      return x == null ? this.cx() - this.rx() : this.cx(x + this.rx())
+    }
+    // Move over y-axis
+  , y: function(y) {
+      return y == null ? this.cy() - this.ry() : this.cy(y + this.ry())
+    }
+    // Move by center over x-axis
+  , cx: function(x) {
+      return x == null ? this.attr('cx') : this.attr('cx', x)
+    }
+    // Move by center over y-axis
+  , cy: function(y) {
+      return y == null ? this.attr('cy') : this.attr('cy', y)
+    }
+    // Set width of element
+  , width: function(width) {
+      return width == null ? this.rx() * 2 : this.rx(new SVG.Number(width).divide(2))
+    }
+    // Set height of element
+  , height: function(height) {
+      return height == null ? this.ry() * 2 : this.ry(new SVG.Number(height).divide(2))
+    }
+    // Custom size function
+  , size: function(width, height) {
+      var p = proportionalSize(this, width, height)
+
+      return this
+        .rx(new SVG.Number(p.width).divide(2))
+        .ry(new SVG.Number(p.height).divide(2))
+    }
+})
+SVG.Line = SVG.invent({
+  // Initialize node
+  create: 'line'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add class methods
+, extend: {
+    // Get array
+    array: function() {
+      return new SVG.PointArray([
+        [ this.attr('x1'), this.attr('y1') ]
+      , [ this.attr('x2'), this.attr('y2') ]
+      ])
+    }
+    // Overwrite native plot() method
+  , plot: function(x1, y1, x2, y2) {
+      if (x1 == null)
+        return this.array()
+      else if (typeof y1 !== 'undefined')
+        x1 = { x1: x1, y1: y1, x2: x2, y2: y2 }
+      else
+        x1 = new SVG.PointArray(x1).toLine()
+
+      return this.attr(x1)
+    }
+    // Move by left top corner
+  , move: function(x, y) {
+      return this.attr(this.array().move(x, y).toLine())
+    }
+    // Set element size to given width and height
+  , size: function(width, height) {
+      var p = proportionalSize(this, width, height)
+
+      return this.attr(this.array().size(p.width, p.height).toLine())
+    }
+  }
+
+  // Add parent method
+, construct: {
+    // Create a line element
+    line: function(x1, y1, x2, y2) {
+      // make sure plot is called as a setter
+      // x1 is not necessarily a number, it can also be an array, a string and a SVG.PointArray
+      return SVG.Line.prototype.plot.apply(
+        this.put(new SVG.Line)
+      , x1 != null ? [x1, y1, x2, y2] : [0, 0, 0, 0]
+      )
+    }
+  }
+})
