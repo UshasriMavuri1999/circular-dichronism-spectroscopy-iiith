@@ -3831,3 +3831,181 @@ SVG.Doc = SVG.invent({
   }
 
 })
+SVG.extend(SVG.Element, {
+  // Get all siblings, including myself
+  siblings: function() {
+    return this.parent().children()
+  }
+  // Get the curent position siblings
+, position: function() {
+    return this.parent().index(this)
+  }
+  // Get the next element (will return null if there is none)
+, next: function() {
+    return this.siblings()[this.position() + 1]
+  }
+  // Get the next element (will return null if there is none)
+, previous: function() {
+    return this.siblings()[this.position() - 1]
+  }
+  // Send given element one step forward
+, forward: function() {
+    var i = this.position() + 1
+      , p = this.parent()
+
+    // move node one step forward
+    p.removeElement(this).add(this, i)
+
+    // make sure defs node is always at the top
+    if (p instanceof SVG.Doc)
+      p.node.appendChild(p.defs().node)
+
+    return this
+  }
+  // Send given element one step backward
+, backward: function() {
+    var i = this.position()
+
+    if (i > 0)
+      this.parent().removeElement(this).add(this, i - 1)
+
+    return this
+  }
+  // Send given element all the way to the front
+, front: function() {
+    var p = this.parent()
+
+    // Move node forward
+    p.node.appendChild(this.node)
+
+    // Make sure defs node is always at the top
+    if (p instanceof SVG.Doc)
+      p.node.appendChild(p.defs().node)
+
+    return this
+  }
+  // Send given element all the way to the back
+, back: function() {
+    if (this.position() > 0)
+      this.parent().removeElement(this).add(this, 0)
+
+    return this
+  }
+  // Inserts a given element before the targeted element
+, before: function(element) {
+    element.remove()
+
+    var i = this.position()
+
+    this.parent().add(element, i)
+
+    return this
+  }
+  // Insters a given element after the targeted element
+, after: function(element) {
+    element.remove()
+
+    var i = this.position()
+
+    this.parent().add(element, i + 1)
+
+    return this
+  }
+
+})
+SVG.Mask = SVG.invent({
+  // Initialize node
+  create: function() {
+    this.constructor.call(this, SVG.create('mask'))
+
+    // keep references to masked elements
+    this.targets = []
+  }
+
+  // Inherit from
+, inherit: SVG.Container
+
+  // Add class methods
+, extend: {
+    // Unmask all masked elements and remove itself
+    remove: function() {
+      // unmask all targets
+      for (var i = this.targets.length - 1; i >= 0; i--)
+        if (this.targets[i])
+          this.targets[i].unmask()
+      this.targets = []
+
+      // remove mask from parent
+      SVG.Element.prototype.remove.call(this)
+
+      return this
+    }
+  }
+
+  // Add parent method
+, construct: {
+    // Create masking element
+    mask: function() {
+      return this.defs().put(new SVG.Mask)
+    }
+  }
+})
+
+
+SVG.extend(SVG.Element, {
+  // Distribute mask to svg element
+  maskWith: function(element) {
+    // use given mask or create a new one
+    this.masker = element instanceof SVG.Mask ? element : this.parent().mask().add(element)
+
+    // store reverence on self in mask
+    this.masker.targets.push(this)
+
+    // apply mask
+    return this.attr('mask', 'url("#' + this.masker.attr('id') + '")')
+  }
+  // Unmask element
+, unmask: function() {
+    delete this.masker
+    return this.attr('mask', null)
+  }
+
+})
+
+SVG.ClipPath = SVG.invent({
+  // Initialize node
+  create: function() {
+    this.constructor.call(this, SVG.create('clipPath'))
+
+    // keep references to clipped elements
+    this.targets = []
+  }
+
+  // Inherit from
+, inherit: SVG.Container
+
+  // Add class methods
+, extend: {
+    // Unclip all clipped elements and remove itself
+    remove: function() {
+      // unclip all targets
+      for (var i = this.targets.length - 1; i >= 0; i--)
+        if (this.targets[i])
+          this.targets[i].unclip()
+      this.targets = []
+
+      // remove clipPath from parent
+      this.parent().removeElement(this)
+
+      return this
+    }
+  }
+
+  // Add parent method
+, construct: {
+    // Create clipping element
+    clip: function() {
+      return this.defs().put(new SVG.ClipPath)
+    }
+  }
+})
