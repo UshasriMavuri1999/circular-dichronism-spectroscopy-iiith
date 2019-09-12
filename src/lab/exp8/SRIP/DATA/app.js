@@ -4440,3 +4440,156 @@ SVG.Line = SVG.invent({
     }
   }
 })
+SVG.Polyline = SVG.invent({
+  // Initialize node
+  create: 'polyline'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add parent method
+, construct: {
+    // Create a wrapped polyline element
+    polyline: function(p) {
+      // make sure plot is called as a setter
+      return this.put(new SVG.Polyline).plot(p || new SVG.PointArray)
+    }
+  }
+})
+
+SVG.Polygon = SVG.invent({
+  // Initialize node
+  create: 'polygon'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add parent method
+, construct: {
+    // Create a wrapped polygon element
+    polygon: function(p) {
+      // make sure plot is called as a setter
+      return this.put(new SVG.Polygon).plot(p || new SVG.PointArray)
+    }
+  }
+})
+
+// Add polygon-specific functions
+SVG.extend(SVG.Polyline, SVG.Polygon, {
+  // Get array
+  array: function() {
+    return this._array || (this._array = new SVG.PointArray(this.attr('points')))
+  }
+  // Plot new path
+, plot: function(p) {
+    return (p == null) ?
+      this.array() :
+      this.clear().attr('points', typeof p == 'string' ? p : (this._array = new SVG.PointArray(p)))
+  }
+  // Clear array cache
+, clear: function() {
+    delete this._array
+    return this
+  }
+  // Move by left top corner
+, move: function(x, y) {
+    return this.attr('points', this.array().move(x, y))
+  }
+  // Set element size to given width and height
+, size: function(width, height) {
+    var p = proportionalSize(this, width, height)
+
+    return this.attr('points', this.array().size(p.width, p.height))
+  }
+
+})
+
+// unify all point to point elements
+SVG.extend(SVG.Line, SVG.Polyline, SVG.Polygon, {
+  // Define morphable array
+  morphArray:  SVG.PointArray
+  // Move by left top corner over x-axis
+, x: function(x) {
+    return x == null ? this.bbox().x : this.move(x, this.bbox().y)
+  }
+  // Move by left top corner over y-axis
+, y: function(y) {
+    return y == null ? this.bbox().y : this.move(this.bbox().x, y)
+  }
+  // Set width of element
+, width: function(width) {
+    var b = this.bbox()
+
+    return width == null ? b.width : this.size(width, b.height)
+  }
+  // Set height of element
+, height: function(height) {
+    var b = this.bbox()
+
+    return height == null ? b.height : this.size(b.width, height)
+  }
+})
+SVG.Path = SVG.invent({
+  // Initialize node
+  create: 'path'
+
+  // Inherit from
+, inherit: SVG.Shape
+
+  // Add class methods
+, extend: {
+    // Define morphable array
+    morphArray:  SVG.PathArray
+    // Get array
+  , array: function() {
+      return this._array || (this._array = new SVG.PathArray(this.attr('d')))
+    }
+    // Plot new path
+  , plot: function(d) {
+      return (d == null) ?
+        this.array() :
+        this.clear().attr('d', typeof d == 'string' ? d : (this._array = new SVG.PathArray(d)))
+    }
+    // Clear array cache
+  , clear: function() {
+      delete this._array
+      return this
+    }
+    // Move by left top corner
+  , move: function(x, y) {
+      return this.attr('d', this.array().move(x, y))
+    }
+    // Move by left top corner over x-axis
+  , x: function(x) {
+      return x == null ? this.bbox().x : this.move(x, this.bbox().y)
+    }
+    // Move by left top corner over y-axis
+  , y: function(y) {
+      return y == null ? this.bbox().y : this.move(this.bbox().x, y)
+    }
+    // Set element size to given width and height
+  , size: function(width, height) {
+      var p = proportionalSize(this, width, height)
+
+      return this.attr('d', this.array().size(p.width, p.height))
+    }
+    // Set width of element
+  , width: function(width) {
+      return width == null ? this.bbox().width : this.size(width, this.bbox().height)
+    }
+    // Set height of element
+  , height: function(height) {
+      return height == null ? this.bbox().height : this.size(this.bbox().width, height)
+    }
+
+  }
+
+  // Add parent method
+, construct: {
+    // Create a wrapped path element
+    path: function(d) {
+      // make sure plot is called as a setter
+      return this.put(new SVG.Path).plot(d || new SVG.PathArray)
+    }
+  }
+})
